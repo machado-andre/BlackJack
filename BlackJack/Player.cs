@@ -17,22 +17,33 @@ namespace BlackJack
         {
         }
 
+        public void setWage(decimal wage)
+        {
+            this.wage = wage;
+        }
+
         public void setMoney(decimal money)
         {
             this.money = money;
+        }
+
+        public decimal getMoney()
+        {
+            return money;
         }
 
         public int getScore()
         {
             return score;
         }
-        public decimal bet(decimal wage)
+
+        public void bet(decimal wage)
         {
             if(money < wage || wage <=0)
             {
-                return 0;
+                return;
             }
-            return money - wage;
+            setMoney(money -= wage);
         }
 
         public void addCard(Card card){
@@ -57,6 +68,20 @@ namespace BlackJack
             return score;
         }
 
-        public int 
+        public void loseBet()
+        {
+            clearHand();
+            money -= wage;
+        }
+
+        public void clearHand()
+        {
+            if (playerCards == null)
+                return;
+            foreach (Card card in playerCards){
+                card.removePlayer(this);
+            }
+            playerCards.Clear();
+        }
     }
 }

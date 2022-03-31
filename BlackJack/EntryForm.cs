@@ -12,8 +12,6 @@ namespace BlackJack
 {
     public partial class EntryForm : Form
     {
-        String decks="";
-        String username="";
         public EntryForm()
         {
             InitializeComponent();

@@ -67,5 +67,17 @@ namespace BlackJack
             dealer.addCard(this);
         }
 
+        public void removeDealer(Dealer dealer)
+        {
+            if (dealer == null)
+                return;
+            dealer = null;
+        }
+        public void removePlayer(Player player)
+        {
+            if (player == null)
+                return;
+            player = null;
+        }
     }
 }

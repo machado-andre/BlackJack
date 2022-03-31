@@ -57,5 +57,16 @@ namespace BlackJack
             }
             return score;
         }
+
+        public void clearHand()
+        {
+            if (dealerCards == null)
+                return;
+            foreach (Card card in dealerCards)
+            {
+                card.removeDealer(this);
+            }
+            dealerCards.Clear();
+        }
     }
 }

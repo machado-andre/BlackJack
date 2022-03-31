@@ -37,10 +37,13 @@ namespace BlackJack
             dealerCard2.BackgroundImage = Properties.Resources.CardBack;
             playerCard2.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
 
-            labelDealerScore.Text = "Dealer Score: "+dealer.checkScore().ToString();
+            //labelDealerScore.Text = "Dealer Score: "+dealer.checkScore().ToString();
             labelPlayerScore.Text = "Player Score: "+player.checkScore().ToString();
 
+            player.bet(numericWage.Value);
+
             btnStartGame.Visible = false;
+            labelPlayerMoney.Text = "Total Money: $" + player.getMoney().ToString();
         }
 
         //Generate Random ints
@@ -206,6 +209,8 @@ namespace BlackJack
 
         private void btnHit_Click(object sender, EventArgs e)
         {
+            if(playerCard1.BackgroundImage == null)
+                return;
             if (playerCard3.BackgroundImage == null)
             {
                 playerCard3.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
@@ -218,15 +223,29 @@ namespace BlackJack
             }
 
             labelPlayerScore.Text = "Player Score: "+player.checkScore().ToString();
+            //labelDealerScore.Text = "Dealer Score: "+dealer.checkScore().ToString();
+
             if (player.getScore() > 21)
             {
-                gameover();
+                dealer.clearHand();
+                player.loseBet();
+                clearCards();
+                btnStartGame.Visible = true;
             }
         }
 
-        private void gameover()
+        public void clearCards()
         {
-            
+            playerCard1.BackgroundImage = null;
+            playerCard2.BackgroundImage = null;
+            playerCard3.BackgroundImage = null;
+            playerCard4.BackgroundImage = null;
+            playerCard5.BackgroundImage = null;
+            dealerCard1.BackgroundImage = null;
+            dealerCard2.BackgroundImage = null;
+            dealerCard3.BackgroundImage = null;
+            dealerCard4.BackgroundImage = null;
+            dealerCard5.BackgroundImage = null;
         }
     }
 }
