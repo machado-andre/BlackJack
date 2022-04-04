@@ -220,6 +220,7 @@
             this.btnStand.TabIndex = 16;
             this.btnStand.Text = "Stand";
             this.btnStand.UseVisualStyleBackColor = true;
+            this.btnStand.Click += new System.EventHandler(this.btnStand_Click);
             // 
             // labelDealerScore
             // 
@@ -256,7 +257,7 @@
             this.numericWage.Size = new System.Drawing.Size(152, 20);
             this.numericWage.TabIndex = 19;
             this.numericWage.Value = new decimal(new int[] {
-            1,
+            50,
             0,
             0,
             0});

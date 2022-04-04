@@ -19,6 +19,7 @@ namespace BlackJack
         Dealer dealer = new Dealer();
         Player player = new Player();
         List<Card> cards = new List<Card>();
+        Card turnedDealerCard;
 
         public GameForm(String nrOfDecks, String username, decimal startingMoney)
         {
@@ -33,7 +34,7 @@ namespace BlackJack
         {
             dealerCard1.BackgroundImage = findCardImage(dealer.dealDealerCard(cards,generateRandom(random,cards.Count)));
             playerCard1.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards,player,generateRandom(random, cards.Count)));
-            Card turnedDealerCard = dealer.dealDealerCard(cards, generateRandom(random, cards.Count));
+            turnedDealerCard = dealer.dealDealerCard(cards, generateRandom(random, cards.Count));
             dealerCard2.BackgroundImage = Properties.Resources.CardBack;
             playerCard2.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
 
@@ -223,18 +224,17 @@ namespace BlackJack
             }
 
             labelPlayerScore.Text = "Player Score: "+player.checkScore().ToString();
-            //labelDealerScore.Text = "Dealer Score: "+dealer.checkScore().ToString();
 
             if (player.getScore() > 21)
             {
                 dealer.clearHand();
                 player.loseBet();
-                clearCards();
+                clearCardsImg();
                 btnStartGame.Visible = true;
             }
         }
 
-        public void clearCards()
+        public void clearCardsImg()
         {
             playerCard1.BackgroundImage = null;
             playerCard2.BackgroundImage = null;
@@ -246,6 +246,55 @@ namespace BlackJack
             dealerCard3.BackgroundImage = null;
             dealerCard4.BackgroundImage = null;
             dealerCard5.BackgroundImage = null;
+        }
+
+        private void btnStand_Click(object sender, EventArgs e)
+        {
+            dealerCard2.BackgroundImage = findCardImage(turnedDealerCard);
+            labelDealerScore.Text = dealer.checkScore().ToString();
+
+            while (dealer.checkScore() < 16)
+            {
+                if (dealerCard3.BackgroundImage == null)
+                {
+                    dealerCard3.BackgroundImage = findCardImage(dealer.dealDealerCard(cards, generateRandom(random, cards.Count)));
+                }
+                else if (dealerCard4.BackgroundImage == null)
+                {
+                    dealerCard4.BackgroundImage = findCardImage(dealer.dealDealerCard(cards, generateRandom(random, cards.Count)));
+                }
+                else if (dealerCard5.BackgroundImage == null)
+                {
+                    dealerCard5.BackgroundImage = findCardImage(dealer.dealDealerCard(cards, generateRandom(random, cards.Count)));
+                }
+            }
+
+            checkWinner();
+            labelPlayerMoney.Text = "Total Money: $" + player.getMoney().ToString();
+            labelDealerScore.Text = "Dealer Score: "+dealer.checkScore().ToString();
+            labelPlayerScore.Text = "Player Score: " + player.checkScore().ToString();
+            btnStartGame.Visible = true;
+            clearCardsImg();
+        }
+
+        public void checkWinner()
+        {
+            if(dealer.checkScore() == player.getScore())
+            {
+                player.draw();
+                dealer.clearHand();
+                MessageBox.Show("Draw");
+            }else if(dealer.checkScore() < 22 && dealer.checkScore() > player.getScore() && player.getScore() < 22)
+            {
+                player.loseBet();
+                dealer.clearHand();
+                MessageBox.Show("You lost the bet");
+            }else if(dealer.checkScore() < 22 && dealer.checkScore() < player.getScore() && player.getScore() < 22)
+            {
+                player.winBet();
+                dealer.clearHand();
+                MessageBox.Show("You won the bet");
+            }
         }
     }
 }

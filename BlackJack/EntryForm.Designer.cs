@@ -90,6 +90,7 @@
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(175, 20);
             this.textBoxUsername.TabIndex = 5;
+            this.textBoxUsername.Text = "andre";
             // 
             // btnGo
             // 
@@ -127,7 +128,7 @@
             this.numericStartingMoney.Size = new System.Drawing.Size(127, 20);
             this.numericStartingMoney.TabIndex = 8;
             this.numericStartingMoney.Value = new decimal(new int[] {
-            1,
+            500,
             0,
             0,
             0});

@@ -39,6 +39,7 @@ namespace BlackJack
 
         public void bet(decimal wage)
         {
+            setWage(wage);
             if(money < wage || wage <=0)
             {
                 return;
@@ -68,12 +69,6 @@ namespace BlackJack
             return score;
         }
 
-        public void loseBet()
-        {
-            clearHand();
-            money -= wage;
-        }
-
         public void clearHand()
         {
             if (playerCards == null)
@@ -82,6 +77,23 @@ namespace BlackJack
                 card.removePlayer(this);
             }
             playerCards.Clear();
+        }
+
+        public void draw()
+        {
+            clearHand();
+            money += wage;
+        }
+
+        public void loseBet()
+        {
+            clearHand();
+        }
+
+        public void winBet()
+        {
+            clearHand();
+            money += wage * 2;
         }
     }
 }

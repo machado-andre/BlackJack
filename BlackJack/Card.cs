@@ -27,12 +27,12 @@ namespace BlackJack
 
         public void setScore()
         {
-            if (rank == 11 || rank == 12 || rank == 13 || rank == 14)
+            if (rank == 11 || rank == 12 || rank == 13)
             {
                 score = 10;
-            }
-            else
-            {
+            }else if (rank == 14){
+                score = 11;
+            }else{
                 score=rank;
             }
         }
