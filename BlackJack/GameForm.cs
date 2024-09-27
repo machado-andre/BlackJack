@@ -32,6 +32,12 @@ namespace BlackJack
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
+
+            if (player.getMoney() < numericWage.Value)
+            {
+                MessageBox.Show("Not Enough Money To Make That Bet");
+                return;
+            }
             dealerCard1.BackgroundImage = findCardImage(dealer.dealDealerCard(cards,generateRandom(random,cards.Count)));
             playerCard1.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards,player,generateRandom(random, cards.Count)));
             turnedDealerCard = dealer.dealDealerCard(cards, generateRandom(random, cards.Count));
@@ -227,10 +233,12 @@ namespace BlackJack
 
             if (player.getScore() > 21)
             {
+                MessageBox.Show("Bust!");
                 dealer.clearHand();
                 player.loseBet();
                 clearCardsImg();
                 btnStartGame.Visible = true;
+                checkPlayerMoneyLeft();
             }
         }
 
@@ -279,7 +287,24 @@ namespace BlackJack
 
         public void checkWinner()
         {
-            if(dealer.checkScore() == player.getScore())
+            if(dealer.checkScore() > 21)
+            {
+                labelDealerScore.Text = "Dealer Score: " + dealer.checkScore().ToString();
+                player.winBet();
+                dealer.clearHand();
+                MessageBox.Show("Dealer Bust! You win!");
+                return;
+            }
+            if (player.checkScore() > 21)
+            {
+                player.loseBet();
+                dealer.clearHand();
+                MessageBox.Show("Bust! You lose!");
+                checkPlayerMoneyLeft();
+                return;
+            }
+            
+            if (dealer.checkScore() == player.getScore())
             {
                 player.draw();
                 dealer.clearHand();
@@ -289,11 +314,21 @@ namespace BlackJack
                 player.loseBet();
                 dealer.clearHand();
                 MessageBox.Show("You lost the bet");
+                checkPlayerMoneyLeft();
             }else if(dealer.checkScore() < 22 && dealer.checkScore() < player.getScore() && player.getScore() < 22)
             {
                 player.winBet();
                 dealer.clearHand();
                 MessageBox.Show("You won the bet");
+            }
+        }
+
+        public void checkPlayerMoneyLeft()
+        {
+            if (player.getMoney() <= 0)
+            {
+                MessageBox.Show("You have no money left!");
+                Application.Exit();
             }
         }
     }

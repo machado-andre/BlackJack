@@ -9,3 +9,14 @@ C:\wamp64\www\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.ca
 C:\wamp64\www\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.CoreCompileInputs.cache
 C:\wamp64\www\BlackJack\BlackJack\obj\Debug\BlackJack.exe
 C:\wamp64\www\BlackJack\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\Andre\source\repos\BlackJack\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\Andre\source\repos\BlackJack\BlackJack\bin\Debug\BlackJack.exe
+C:\Users\Andre\source\repos\BlackJack\BlackJack\bin\Debug\BlackJack.pdb
+C:\Users\Andre\source\repos\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.AssemblyReference.cache
+C:\Users\Andre\source\repos\BlackJack\BlackJack\obj\Debug\BlackJack.EntryForm.resources
+C:\Users\Andre\source\repos\BlackJack\BlackJack\obj\Debug\BlackJack.GameForm.resources
+C:\Users\Andre\source\repos\BlackJack\BlackJack\obj\Debug\BlackJack.Properties.Resources.resources
+C:\Users\Andre\source\repos\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.GenerateResource.cache
+C:\Users\Andre\source\repos\BlackJack\BlackJack\obj\Debug\BlackJack.csproj.CoreCompileInputs.cache
+C:\Users\Andre\source\repos\BlackJack\BlackJack\obj\Debug\BlackJack.exe
+C:\Users\Andre\source\repos\BlackJack\BlackJack\obj\Debug\BlackJack.pdb
