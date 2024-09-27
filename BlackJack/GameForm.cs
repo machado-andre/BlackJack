@@ -32,7 +32,9 @@ namespace BlackJack
 
         private void btnStartGame_Click(object sender, EventArgs e)
         {
-
+            numericWage.Enabled = false;
+            btnDouble.Enabled = true;
+            btnHit.Enabled = true;
             if (player.getMoney() < numericWage.Value)
             {
                 MessageBox.Show("Not Enough Money To Make That Bet");
@@ -44,7 +46,7 @@ namespace BlackJack
             dealerCard2.BackgroundImage = Properties.Resources.CardBack;
             playerCard2.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
 
-            //labelDealerScore.Text = "Dealer Score: "+dealer.checkScore().ToString();
+            labelDealerScore.Text = "Dealer Score: ??";
             labelPlayerScore.Text = "Player Score: "+player.checkScore().ToString();
 
             player.bet(numericWage.Value);
@@ -216,15 +218,17 @@ namespace BlackJack
 
         private void btnHit_Click(object sender, EventArgs e)
         {
-            if(playerCard1.BackgroundImage == null)
+            if (playerCard1.BackgroundImage == null)
                 return;
             if (playerCard3.BackgroundImage == null)
             {
                 playerCard3.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
-            }else if (playerCard4.BackgroundImage == null)
+            }
+            else if (playerCard4.BackgroundImage == null)
             {
                 playerCard4.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
-            }else if (playerCard5.BackgroundImage == null)
+            }
+            else if (playerCard5.BackgroundImage == null)
             {
                 playerCard5.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
             }
@@ -239,6 +243,7 @@ namespace BlackJack
                 clearCardsImg();
                 btnStartGame.Visible = true;
                 checkPlayerMoneyLeft();
+                numericWage.Enabled = true;
             }
         }
 
@@ -260,7 +265,6 @@ namespace BlackJack
         {
             dealerCard2.BackgroundImage = findCardImage(turnedDealerCard);
             labelDealerScore.Text = dealer.checkScore().ToString();
-
             while (dealer.checkScore() < 16)
             {
                 if (dealerCard3.BackgroundImage == null)
@@ -278,11 +282,13 @@ namespace BlackJack
             }
 
             checkWinner();
+            clearCardsImg();
+            numericWage.Enabled = true;
             labelPlayerMoney.Text = "Total Money: $" + player.getMoney().ToString();
-            labelDealerScore.Text = "Dealer Score: "+dealer.checkScore().ToString();
+            labelDealerScore.Text = "Dealer Score: " + dealer.checkScore().ToString();
             labelPlayerScore.Text = "Player Score: " + player.checkScore().ToString();
             btnStartGame.Visible = true;
-            clearCardsImg();
+
         }
 
         public void checkWinner()
@@ -293,6 +299,7 @@ namespace BlackJack
                 player.winBet();
                 dealer.clearHand();
                 MessageBox.Show("Dealer Bust! You win!");
+                numericWage.Enabled = true;
                 return;
             }
             if (player.checkScore() > 21)
@@ -301,6 +308,7 @@ namespace BlackJack
                 dealer.clearHand();
                 MessageBox.Show("Bust! You lose!");
                 checkPlayerMoneyLeft();
+                numericWage.Enabled = true;
                 return;
             }
             
@@ -309,17 +317,22 @@ namespace BlackJack
                 player.draw();
                 dealer.clearHand();
                 MessageBox.Show("Draw");
-            }else if(dealer.checkScore() < 22 && dealer.checkScore() > player.getScore() && player.getScore() < 22)
+                numericWage.Enabled = true;
+            }
+            else if(dealer.checkScore() < 22 && dealer.checkScore() > player.getScore() && player.getScore() < 22)
             {
                 player.loseBet();
                 dealer.clearHand();
                 MessageBox.Show("You lost the bet");
                 checkPlayerMoneyLeft();
-            }else if(dealer.checkScore() < 22 && dealer.checkScore() < player.getScore() && player.getScore() < 22)
+                numericWage.Enabled = true;
+            }
+            else if(dealer.checkScore() < 22 && dealer.checkScore() < player.getScore() && player.getScore() < 22)
             {
                 player.winBet();
                 dealer.clearHand();
                 MessageBox.Show("You won the bet");
+                numericWage.Enabled = true;
             }
         }
 
@@ -330,6 +343,50 @@ namespace BlackJack
                 MessageBox.Show("You have no money left!");
                 Application.Exit();
             }
+        }
+
+        private void btnDouble_Click(object sender, EventArgs e)
+        {
+            if(numericWage.Value > player.getMoney())
+            {
+                MessageBox.Show("Not enough money to double");
+                return;
+            }
+
+            player.bet(numericWage.Value);
+            player.setWage(numericWage.Value*2);
+            if (playerCard1.BackgroundImage == null)
+                return;
+            if (playerCard3.BackgroundImage == null)
+            {
+                playerCard3.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
+            }
+            else if (playerCard4.BackgroundImage == null)
+            {
+                playerCard4.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
+            }
+            else if (playerCard5.BackgroundImage == null)
+            {
+                playerCard5.BackgroundImage = findCardImage(dealer.dealPlayerCard(cards, player, generateRandom(random, cards.Count)));
+            }
+
+            labelPlayerScore.Text = "Player Score: " + player.checkScore().ToString();
+            labelPlayerMoney.Text = "Total Money: $" + player.getMoney().ToString();
+
+            if (player.getScore() > 21)
+            {
+                MessageBox.Show("Bust!");
+                dealer.clearHand();
+                player.loseBet();
+                clearCardsImg();
+                btnStartGame.Visible = true;
+                checkPlayerMoneyLeft();
+                btnDouble.Enabled = true;
+                return;
+            }
+
+            btnDouble.Enabled = false;
+            btnHit.Enabled = false;
         }
     }
 }

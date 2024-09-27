@@ -165,6 +165,7 @@
             this.btnDouble.TabIndex = 10;
             this.btnDouble.Text = "Double";
             this.btnDouble.UseVisualStyleBackColor = true;
+            this.btnDouble.Click += new System.EventHandler(this.btnDouble_Click);
             // 
             // playerCard4
             // 
