@@ -149,6 +149,7 @@
             // 
             // btnHit
             // 
+            this.btnHit.Enabled = false;
             this.btnHit.Location = new System.Drawing.Point(389, 190);
             this.btnHit.Name = "btnHit";
             this.btnHit.Size = new System.Drawing.Size(102, 40);
@@ -159,6 +160,7 @@
             // 
             // btnDouble
             // 
+            this.btnDouble.Enabled = false;
             this.btnDouble.Location = new System.Drawing.Point(495, 190);
             this.btnDouble.Name = "btnDouble";
             this.btnDouble.Size = new System.Drawing.Size(102, 40);
@@ -215,6 +217,7 @@
             // 
             // btnStand
             // 
+            this.btnStand.Enabled = false;
             this.btnStand.Location = new System.Drawing.Point(601, 190);
             this.btnStand.Name = "btnStand";
             this.btnStand.Size = new System.Drawing.Size(102, 40);

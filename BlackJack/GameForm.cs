@@ -50,6 +50,7 @@ namespace BlackJack
             labelPlayerScore.Text = "Player Score: "+player.checkScore().ToString();
 
             player.bet(numericWage.Value);
+            enableDisableGameButtons(true);
 
             btnStartGame.Visible = false;
             labelPlayerMoney.Text = "Total Money: $" + player.getMoney().ToString();
@@ -241,6 +242,7 @@ namespace BlackJack
                 dealer.clearHand();
                 player.loseBet();
                 clearCardsImg();
+                enableDisableGameButtons(false);
                 btnStartGame.Visible = true;
                 checkPlayerMoneyLeft();
                 numericWage.Enabled = true;
@@ -264,7 +266,7 @@ namespace BlackJack
         private void btnStand_Click(object sender, EventArgs e)
         {
             dealerCard2.BackgroundImage = findCardImage(turnedDealerCard);
-            labelDealerScore.Text = dealer.checkScore().ToString();
+            labelDealerScore.Text = "Dealer Score: " + dealer.checkScore().ToString();
             while (dealer.checkScore() < 16)
             {
                 if (dealerCard3.BackgroundImage == null)
@@ -300,6 +302,7 @@ namespace BlackJack
                 dealer.clearHand();
                 MessageBox.Show("Dealer Bust! You win!");
                 numericWage.Enabled = true;
+                enableDisableGameButtons(false);
                 return;
             }
             if (player.checkScore() > 21)
@@ -309,6 +312,7 @@ namespace BlackJack
                 MessageBox.Show("Bust! You lose!");
                 checkPlayerMoneyLeft();
                 numericWage.Enabled = true;
+                enableDisableGameButtons(false);
                 return;
             }
             
@@ -318,6 +322,7 @@ namespace BlackJack
                 dealer.clearHand();
                 MessageBox.Show("Draw");
                 numericWage.Enabled = true;
+                enableDisableGameButtons(false);
             }
             else if(dealer.checkScore() < 22 && dealer.checkScore() > player.getScore() && player.getScore() < 22)
             {
@@ -326,6 +331,7 @@ namespace BlackJack
                 MessageBox.Show("You lost the bet");
                 checkPlayerMoneyLeft();
                 numericWage.Enabled = true;
+                enableDisableGameButtons(false);
             }
             else if(dealer.checkScore() < 22 && dealer.checkScore() < player.getScore() && player.getScore() < 22)
             {
@@ -333,6 +339,7 @@ namespace BlackJack
                 dealer.clearHand();
                 MessageBox.Show("You won the bet");
                 numericWage.Enabled = true;
+                enableDisableGameButtons(false);
             }
         }
 
@@ -388,5 +395,22 @@ namespace BlackJack
             btnDouble.Enabled = false;
             btnHit.Enabled = false;
         }
+        public void enableDisableGameButtons(bool yesno)
+        {
+            if (yesno)
+            {
+                btnHit.Enabled = true;
+                btnDouble.Enabled = true;
+                btnStand.Enabled = true;
+            }
+            else
+            {
+                btnHit.Enabled = false;
+                btnDouble.Enabled = false;
+                btnStand.Enabled = false;
+            }
+        }
     }
+
+   
 }
